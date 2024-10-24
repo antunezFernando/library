@@ -50,7 +50,7 @@ main {
 }
 
 .book-card {
-    border: var(--test-border);
+    border-radius: 15px;
 }
 
 footer {
@@ -61,4 +61,12 @@ footer {
     bottom: 0;
     left: 0;
     background-color: blue;
+}
+
+.not-read {
+    border: 2px solid grey;
+}
+
+.read {
+    border: 2px solid green;
 }

@@ -35,6 +35,7 @@ function createInitialBooks() {
 function createBookCardElement(book) {
     let bookCard = document.createElement("div");
     bookCard.classList.add("book-card");
+    bookCard.classList.add(book.read ? "read" : "not-read");
 
     let title = document.createElement("p");
     title.innerText = book.title;
@@ -42,21 +43,47 @@ function createBookCardElement(book) {
     let author = document.createElement("p");
     author.innerText = book.author;
 
+    let read = document.createElement("p");
+    read.innerText = book.read ? "Read" : "Not read";
+
+    let toggleReadButton = document.createElement("button");
+    toggleReadButton.innerText = "Toggle";
+    toggleReadButton.addEventListener("click", () => {
+        toggleReadStatus(book.title);
+    });
+
     let deleteBookButton = document.createElement("button");
-    deleteBookButton.innerHTML = "Delete";
+    deleteBookButton.innerText = "Delete";
     deleteBookButton.addEventListener("click", () => {
-        deleteBookEvent(book.title);
+        deleteBookFromTitle(book.title);
     });
 
     bookCard.appendChild(title);
     bookCard.appendChild(author);
+    bookCard.appendChild(read);
+    bookCard.appendChild(toggleReadButton);
     bookCard.appendChild(deleteBookButton);
 
     return bookCard;
 }
 
-function deleteBookEvent(title) {
+function toggleReadStatus(title) {
     let index = -1;
+
+    for(let i = 0; i < myLibrary.length; i++) {
+        if(myLibrary[i].title === title) {
+            index = i;
+            break;
+        }
+    }
+
+    myLibrary[index].read = !myLibrary[index].read;
+    renderBooks()
+}
+
+function deleteBookFromTitle(title) {
+    let index = -1;
+
     for(let i = 0; i < myLibrary.length; i++) {
         if(myLibrary[i].title === title) {
             index = i;
