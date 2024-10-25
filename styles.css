@@ -34,8 +34,8 @@ main {
     border: var(--test-border);
     display: grid;
     grid-template-columns: repeat(auto-fill, clamp(180px, 20%, 220px));
-    grid-template-rows: 250px;
-    grid-auto-rows: 250px;
+    grid-template-rows: 300px;
+    grid-auto-rows: 300px;
     gap: 10px max(10px, 5%);
     justify-content: center;
 }
@@ -52,15 +52,44 @@ main {
 }
 
 .book-card {
-    border-radius: 15px;
+    border-radius: 5px;
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    padding: 10px;
+}
+
+.book-card-item {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.toggle-button {
+    cursor: pointer;
+}
+
+.toggle-button:hover {
+    background-color: white;
+}
+
+.delete-button {
+    cursor: pointer;
+    align-self: flex-end;
+    width: 30px;
 }
 
 .not-read {
-    border: 2px solid grey;
+    border: 5px solid grey;
 }
 
 .read {
-    border: 2px solid green;
+    border: 5px solid lightskyblue;
 }
 
 footer {

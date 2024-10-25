@@ -29,37 +29,29 @@ creditsModalClose.addEventListener("click", () => {
     creditsModal.classList.toggle("modal-hide");
 });
 
-function Book(title, author, pages, read) {
+function Book(title, author, pages, read, coverLink) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
-
-    this.info = function() {
-        let bookInfo =  `${this.title} by ${this.author}, ${this.pages} pages, `;
-        bookInfo += this.read ? "already read." : "not read yet.";
-        return bookInfo;
-    };
+    this.coverLink = coverLink;
 }
 
-function addBookToLibrary(title, author, pages, read) {
-    let book = new Book(title, author, pages, read);
+function addBookToLibrary(title, author, pages, read, coverLink) {
+    let book = new Book(title, author, pages, read, coverLink);
     myLibrary.push(book);
 }
 
-function createInitialBooks() {
-    for(let i = 0; i < 6; i++) {
-        myLibrary.push(new Book(`Book ${i+1}`, `Author ${i+1}`, 256, false));
-    }
-}
+
 
 function handleNewBookForm() {
     let titleInput = document.querySelector("#title");
     let authorInput = document.querySelector("#author");
     let pagesInput = document.querySelector("#pages");
     let readInput = document.querySelector("#read");
+    let coverInput = document.querySelector("#cover");
 
-    if(!titleInput.checkValidity() || !authorInput.checkValidity() || !pagesInput.checkValidity()) {
+    if (!titleInput.checkValidity() || !authorInput.checkValidity() || !pagesInput.checkValidity()) {
         return;
     }
 
@@ -75,7 +67,10 @@ function handleNewBookForm() {
     let read = readInput.checked;
     readInput.checked = false;
 
-    addBookToLibrary(title, author, pages, read);
+    let coverLink = coverInput.value != "" ? coverInput.value : "";
+    coverInput.value = "";
+
+    addBookToLibrary(title, author, pages, read, coverLink);
     renderBooks();
     newBookModal.classList.toggle("modal-hide");
 }
@@ -85,26 +80,35 @@ function createBookCardElement(book) {
     bookCard.classList.add("book-card");
     bookCard.classList.add(book.read ? "read" : "not-read");
 
+    bookCard.style.backgroundImage = `url('${book.coverLink}')`;
+
     let title = document.createElement("p");
-    title.innerText = book.title;
+    title.classList.add("book-card-item");
+    title.innerText = `Title: ${book.title}`;
 
     let author = document.createElement("p");
-    author.innerText = book.author;
+    author.classList.add("book-card-item");
+    author.innerText = `Author: ${book.author}`;
 
     let pages = document.createElement("p");
-    pages.innerText = book.pages;
+    pages.classList.add("book-card-item");
+    pages.innerText = `N° of pages: ${book.pages}`;
 
     let read = document.createElement("p");
-    read.innerText = book.read ? "Read" : "Not read";
+    read.classList.add("book-card-item");
+    read.innerText = book.read ? "Read status: Read" : "Read Status: Not read";
 
-    let toggleReadButton = document.createElement("button");
-    toggleReadButton.innerText = "Toggle";
+    let toggleReadButton = document.createElement("div");
+    toggleReadButton.classList.add("book-card-item");
+    toggleReadButton.classList.add("toggle-button");
+    toggleReadButton.innerText = "Change read status";
     toggleReadButton.addEventListener("click", () => {
         toggleReadStatus(book.title);
     });
 
-    let deleteBookButton = document.createElement("button");
-    deleteBookButton.innerText = "Delete";
+    let deleteBookButton = document.createElement("img");
+    deleteBookButton.src = "./images/trash.png";
+    deleteBookButton.classList.add("delete-button")
     deleteBookButton.addEventListener("click", () => {
         deleteBookFromTitle(book.title);
     });
@@ -122,22 +126,22 @@ function createBookCardElement(book) {
 function toggleReadStatus(title) {
     let index = -1;
 
-    for(let i = 0; i < myLibrary.length; i++) {
-        if(myLibrary[i].title === title) {
+    for (let i = 0; i < myLibrary.length; i++) {
+        if (myLibrary[i].title === title) {
             index = i;
             break;
         }
     }
 
     myLibrary[index].read = !myLibrary[index].read;
-    renderBooks()
+    renderBooks();
 }
 
 function deleteBookFromTitle(title) {
     let index = -1;
 
-    for(let i = 0; i < myLibrary.length; i++) {
-        if(myLibrary[i].title === title) {
+    for (let i = 0; i < myLibrary.length; i++) {
+        if (myLibrary[i].title === title) {
             index = i;
             break;
         }
@@ -147,9 +151,18 @@ function deleteBookFromTitle(title) {
     renderBooks()
 }
 
+function createInitialBooks() {
+    myLibrary.push(new Book("The Hobbit", "J.R.R. Tolkien", 312, false, "https://m.media-amazon.com/images/I/71V2v2GtAtL._AC_UF1000,1000_QL80_.jpg"));
+    myLibrary.push(new Book("1984", "George Orwell", 328, true, "https://images.cdn1.buscalibre.com/fit-in/360x360/b0/39/b039af065268818b7bd3b0e016f8db65.jpg"));
+    myLibrary.push(new Book("Brave New World", "Aldous Huxley", 288, true, "https://images.cdn2.buscalibre.com/fit-in/520x520/39/b9/655e3488405a63dde352f847757d07f3.jpg"));
+    myLibrary.push(new Book("Crime & Punishment", "Fyodor Dostoevsky", 624, false, "https://miro.medium.com/v2/resize:fit:397/1*_oGNO3yGQpp4_n6-Fjx-Gg@2x.jpeg"));
+    myLibrary.push(new Book("Steel Ball Run: Volume 1", "Hirohiko Araki", 181, true, "https://upload.wikimedia.org/wikipedia/en/8/87/Steel_Ball_Run_1.jpg"));
+    myLibrary.push(new Book("The Strange Case Of Dr. Jekyll and Mr.Hyde", "Robert Louis Stevenson", 138, false, "https://m.media-amazon.com/images/I/616qN8q2pPL._AC_UF1000,1000_QL80_.jpg"));
+}
+
 function renderBooks() {
     bookContainer.innerHTML = "";
-    for(let book of myLibrary) {
+    for (let book of myLibrary) {
         bookContainer.appendChild(createBookCardElement(book));
     }
 }
