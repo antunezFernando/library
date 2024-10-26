@@ -6,11 +6,18 @@
 
 :root {
     --test-border: 5px solid black;
-    --footer-height: 100px;
+    --footer-height: 50px;
+    --brown: rgb(119, 55, 3);
 }
 
 body {
     padding-bottom: var(--footer-height);
+    background-image: url("./images/wood-bg.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 header {
@@ -19,30 +26,41 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(119, 55, 3);
-}
+    font-family: 'Maulysia', sans-serif;
+    font-size: 1.3rem;
+    position: sticky;
 
+    & h1 {
+        text-shadow: -5px 5px 10px white;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 2px 10px;
+        border-radius: 15px;
+    }
+}
+                                                
 main {
+    width: 95%;
     padding: 20px;
-    border: var(--test-border);
+    font-family: 'Major Birch', sans-serif;
+    background-color: white;
 }
 
 .book-container {
-    padding: 10px;
+    padding: 20px;
     width: 100%;
     height: 100%;
     border: var(--test-border);
     display: grid;
-    grid-template-columns: repeat(auto-fill, clamp(180px, 20%, 220px));
-    grid-template-rows: 300px;
-    grid-auto-rows: 300px;
-    gap: 10px max(10px, 5%);
+    grid-template-columns: repeat(auto-fill, clamp(200px, 30%, 280px));
+    grid-template-rows: 380px;
+    grid-auto-rows: 380px;
+    gap: 30px max(10px, 5%);
     justify-content: center;
 }
 
 .controls-container {
     display: flex;
-    padding: 10px;
+    padding-bottom: 10px;
     justify-content: space-between;
 }
 
@@ -52,7 +70,7 @@ main {
 }
 
 .book-card {
-    border-radius: 5px;
+    border-radius: 10px;
     background-size: 100% 100%;
     display: flex;
     flex-direction: column;
@@ -61,6 +79,13 @@ main {
     gap: 10px;
     text-align: center;
     padding: 10px;
+    box-shadow: 5px 5px 15px black;
+    transition: all 100ms;
+}
+
+.book-card:hover {
+    scale: 1.03;
+    box-shadow: 10px 10px 15px black;;
 }
 
 .book-card-item {
@@ -68,28 +93,38 @@ main {
     border-radius: 5px;
     border: 1px solid black;
     background-color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .toggle-button {
     cursor: pointer;
+    transition: all 100ms;
+    margin-bottom: auto;
 }
 
 .toggle-button:hover {
     background-color: white;
+    scale: 1.03;
 }
 
 .delete-button {
     cursor: pointer;
     align-self: flex-end;
     width: 30px;
+    transition: all 100ms;
+}
+
+.delete-button:hover {
+    scale: 1.2;
 }
 
 .not-read {
-    border: 5px solid grey;
+    border: 7px solid grey;
 }
 
 .read {
-    border: 5px solid lightskyblue;
+    border: 7px solid rgb(65, 209, 46);
 }
 
 footer {
@@ -98,7 +133,9 @@ footer {
     position: fixed;
     bottom: 0;
     left: 0;
-    background-color: grey;
+    background-color: var(--brown);
+/*     background-image: url("./images/wood-bg.jpg");
+    background-size: cover; */
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -130,7 +167,7 @@ footer {
 }
 
 .modal-content {
-    background-color: brown;
+    background-color: var(--brown);
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;

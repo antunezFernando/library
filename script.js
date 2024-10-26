@@ -67,7 +67,8 @@ function handleNewBookForm() {
     let read = readInput.checked;
     readInput.checked = false;
 
-    let coverLink = coverInput.value != "" ? coverInput.value : "";
+    let coverLink = coverInput.value != "" ? coverInput.value :
+        "https://m.media-amazon.com/images/I/81MmomTwghL._AC_UF894,1000_QL80_.jpg";
     coverInput.value = "";
 
     addBookToLibrary(title, author, pages, read, coverLink);
@@ -158,6 +159,12 @@ function createInitialBooks() {
     myLibrary.push(new Book("Crime & Punishment", "Fyodor Dostoevsky", 624, false, "https://miro.medium.com/v2/resize:fit:397/1*_oGNO3yGQpp4_n6-Fjx-Gg@2x.jpeg"));
     myLibrary.push(new Book("Steel Ball Run: Volume 1", "Hirohiko Araki", 181, true, "https://upload.wikimedia.org/wikipedia/en/8/87/Steel_Ball_Run_1.jpg"));
     myLibrary.push(new Book("The Strange Case Of Dr. Jekyll and Mr.Hyde", "Robert Louis Stevenson", 138, false, "https://m.media-amazon.com/images/I/616qN8q2pPL._AC_UF1000,1000_QL80_.jpg"));
+    myLibrary.push(new Book("Fahrenheit 451", "Ray Bradbury", 156, true, "https://images.cdn2.buscalibre.com/fit-in/360x360/9e/39/9e3949c949c4abc1f69e2cce613532b1.jpg"));
+    myLibrary.push(new Book("The Hitchhiker’s Guide to the Galaxy", "Douglas Adams", 224, true, "https://m.media-amazon.com/images/I/71OPafHmyQL._AC_UF1000,1000_QL80_.jpg"));
+    myLibrary.push(new Book("Twilight", "Stephenie Meyer", 498, false, "https://i.pinimg.com/736x/65/93/b8/6593b8516b12ec68e63d53274023215e.jpg"));
+    myLibrary.push(new Book("Don Quixote", "Miguel de Cervantes", 1072, false, "https://i.pinimg.com/474x/eb/b1/0e/ebb10e45493efbd45d7a5644270e90e8.jpg"));
+    myLibrary.push(new Book("Frankenstein", "Mary Shelly", 280, false, "https://live.staticflickr.com/6204/6124120334_54f90ffa3f_z.jpg"));
+    myLibrary.push(new Book("Moby-Dick", "Herman Melville", 768, false, "https://ir.ozone.ru/s3/multimedia-r/c1000/6040114719.jpg"));
 }
 
 function renderBooks() {
