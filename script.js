@@ -2,31 +2,39 @@ const myLibrary = [];
 
 let bookContainer = document.querySelector("#book-container");
 
+let playButton = document.querySelector("#play-button");
+let pauseButton = document.querySelector("#pause-button");
+let music = document.querySelector("#music");
+music.volume = 0.3;
+playButton.addEventListener("click", () => {
+    music.play();
+    playButton.classList.toggle("hide");
+    pauseButton.classList.toggle("hide");
+});
+pauseButton.addEventListener("click", () => {
+    music.pause();
+    music.currentTime = 0;
+    playButton.classList.toggle("hide");
+    pauseButton.classList.toggle("hide");
+});
+
+
 let newBookButton = document.querySelector("#new-book-button");
 let newBookClose = document.querySelector("#new-book-close");
 let newBookModal = document.querySelector("#new-book-modal");
+let newBookForm = document.querySelector("#new-book-form");
 newBookButton.addEventListener("click", () => {
-    newBookModal.classList.toggle("modal-hide");
+    newBookModal.classList.toggle("hide");
+    document.querySelector("#title").focus();
 });
 newBookClose.addEventListener("click", () => {
-    newBookModal.classList.toggle("modal-hide");
+    newBookModal.classList.toggle("hide");
+    newBookForm.reset();
 });
 
 let submit = document.querySelector("#submit");
 submit.addEventListener("click", (e) => {
-    handleNewBookForm();
-    e.preventDefault();
-});
-
-let creditsModalOpen = document.querySelector("#credits-open");
-let creditsModalClose = document.querySelector("#credits-close");
-let creditsModal = document.querySelector("#credits-container");
-creditsModalOpen.addEventListener("click", () => {
-    creditsModal.classList.toggle("modal-hide");
-});
-
-creditsModalClose.addEventListener("click", () => {
-    creditsModal.classList.toggle("modal-hide");
+    handleNewBookForm(e);
 });
 
 function Book(title, author, pages, read, coverLink) {
@@ -44,7 +52,7 @@ function addBookToLibrary(title, author, pages, read, coverLink) {
 
 
 
-function handleNewBookForm() {
+function handleNewBookForm(buttonEvent) {
     let titleInput = document.querySelector("#title");
     let authorInput = document.querySelector("#author");
     let pagesInput = document.querySelector("#pages");
@@ -56,24 +64,17 @@ function handleNewBookForm() {
     }
 
     let title = titleInput.value;
-    titleInput.value = "";
-
     let author = authorInput.value;
-    authorInput.value = "";
-
     let pages = pagesInput.value;
-    pagesInput.value = "";
-
     let read = readInput.checked;
-    readInput.checked = false;
-
     let coverLink = coverInput.value != "" ? coverInput.value :
         "https://m.media-amazon.com/images/I/81MmomTwghL._AC_UF894,1000_QL80_.jpg";
-    coverInput.value = "";
 
     addBookToLibrary(title, author, pages, read, coverLink);
     renderBooks();
-    newBookModal.classList.toggle("modal-hide");
+    newBookModal.classList.toggle("hide");
+    newBookForm.reset();
+    buttonEvent.preventDefault();
 }
 
 function createBookCardElement(book) {

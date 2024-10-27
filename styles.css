@@ -11,13 +11,14 @@
 }
 
 body {
-    padding-bottom: var(--footer-height);
-    background-image: url("./images/wood-bg.jpg");
+    padding-bottom: calc(var(--footer-height) + 20px);
+    background-image: url("https://images.unsplash.com/photo-1501166222995-ff31c7e93cef?q=80&w=2534&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
     background-attachment: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'Major Birch', sans-serif;
 }
 
 header {
@@ -41,32 +42,83 @@ header {
 main {
     width: 95%;
     padding: 20px;
-    font-family: 'Major Birch', sans-serif;
+    background-image: url("./images/wood-bg.jpg");
+    background-size: cover;
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
     background-color: white;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 10px 20px;
+
+    & label {
+        justify-self: end;
+    }
+
+    & input {
+        align-self: center;
+    }
+
+    & input[type="checkbox"] {
+        justify-self: start;
+    }
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: center;
+    border-radius: 20px;
+    width: 79%;
+    margin: auto;
+    gap: 10px;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.controls {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    gap: 40px;
+    align-items: center;
 }
 
 .book-container {
     padding: 20px;
     width: 100%;
     height: 100%;
-    border: var(--test-border);
     display: grid;
     grid-template-columns: repeat(auto-fill, clamp(200px, 30%, 280px));
     grid-template-rows: 380px;
     grid-auto-rows: 380px;
     gap: 30px max(10px, 5%);
     justify-content: center;
+    border-radius: 50px;
 }
 
-.controls-container {
-    display: flex;
-    padding-bottom: 10px;
-    justify-content: space-between;
-}
-
-.new-book-button {
+.control-button {
     padding: 5px;
-    font: inherit;
+    width: 50px;
+    cursor: pointer;
+    transition: all 100ms;
+}
+
+.control-button:hover {
+    scale: 1.1;
 }
 
 .book-card {
@@ -111,8 +163,12 @@ main {
 .delete-button {
     cursor: pointer;
     align-self: flex-end;
-    width: 30px;
+    padding: 5px;
+    width: 40px;
     transition: all 100ms;
+    border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
 }
 
 .delete-button:hover {
@@ -133,20 +189,32 @@ footer {
     position: fixed;
     bottom: 0;
     left: 0;
-    background-color: var(--brown);
-/*     background-image: url("./images/wood-bg.jpg");
-    background-size: cover; */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
 .footer-text {
+    text-align: center;
+    color: white;
     font-size: 1.3rem;
+    text-shadow: -5px 5px 5px white;
 }
 
-.footer-element {
-    cursor: pointer;
+.footer-text a {
+    text-decoration: none;
+    color: white;
+    text-shadow: -5px 5px 5px magenta;
+}
+
+.footer-text a:hover {
+    text-shadow: -5px 5px 5px darkturquoise;
+    color: whitesmoke;
+}
+
+.footer-text a:active {
+    color: crimson;
 }
 
 /* modal */
@@ -162,7 +230,7 @@ footer {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-hide {
+.hide {
     display: none;
 }
 
@@ -175,7 +243,10 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
     padding: 10px 40px 20px 40px;
+    font-size: 1.2rem;
+    text-align: center;
 }
 
 .close {
@@ -190,20 +261,6 @@ footer {
     color: black;
     text-decoration: none;
     cursor: pointer;
-}
-
-.info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    font-family: sans-serif;
-    font-size: 25px;
-    text-align: center;
-}
-
-.info h2 {
-    text-decoration: underline;
 }
 
 .modal-link {
