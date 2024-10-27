@@ -110,6 +110,7 @@ function createBookCardElement(book) {
 
     let deleteBookButton = document.createElement("img");
     deleteBookButton.src = "./images/trash.png";
+    deleteBookButton.title = "Delete book";
     deleteBookButton.classList.add("delete-button")
     deleteBookButton.addEventListener("click", () => {
         deleteBookFromTitle(book.title);
